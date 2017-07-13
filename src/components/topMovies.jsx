@@ -6,6 +6,7 @@ import { API_KEY } from '../config'
 
 class TopMovies extends React.Component {
     constructor(props) {
+        const currentYear = parseInt(new Date().getFullYear(), 10)
         super(props)
         this.moviesUrl = 'https://api.themoviedb.org/3/discover/movie'
         this.genreUrl = 'https://api.themoviedb.org/3/genre/movie/list'
@@ -19,7 +20,7 @@ class TopMovies extends React.Component {
             totalPages: 0,
             genre: 35,
             genres: [],
-            year: null,
+            year: currentYear,
         }
         this.like = this.like.bind(this)
         this.changePage = this.changePage.bind(this)
@@ -39,12 +40,13 @@ class TopMovies extends React.Component {
     }
 
     componentWillMount(){
-        const year = new Date().getFullYear()
+        const { year } = this.state
+        const { page } = this.state
+        const { genre } = this.state
 
         return this.fetchGenres()
             .then(({ genres }) => {
-                const { page } = this.state
-                const { genre } = this.state
+
                 return this.fetchMovies({ page, genre, year })
                     .then(({ movies, totalPages}) => {
 
