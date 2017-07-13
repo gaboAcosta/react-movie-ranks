@@ -196,13 +196,16 @@ class TopMovies extends React.Component {
                         movies.map((movie, index) => {
                             const imageSource = `http://image.tmdb.org/t/p/w92/${movie.poster_path}`
                             const title = movie.original_title
+                            const searchTerm = encodeURI(title)
                             return (
                                 <Col xs={12} md={4} key={index}>
-                                    <Thumbnail src={imageSource} alt="242x200">
-                                        <div style={{width: '100%', textAlign: 'center'}}>
-                                            {title}
-                                        </div>
-                                    </Thumbnail>
+                                    <a href={`https://thepiratebay.org/search/${searchTerm}/0/99/0`} target="_blank">
+                                        <Thumbnail src={imageSource} alt="242x200">
+                                            <div style={{width: '100%', textAlign: 'center'}}>
+                                                {title}
+                                            </div>
+                                        </Thumbnail>
+                                    </a>
                                 </Col>
                             )
                         })
